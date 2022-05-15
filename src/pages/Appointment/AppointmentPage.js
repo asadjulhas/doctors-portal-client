@@ -4,9 +4,11 @@ import PageTitle from '../../hooks/PageTitle';
 import Footer from '../Shared/Footer';
 import AppointmentBanner from './AppointmentBanner';
 import AvailableApponintment from './AvailableApponintment';
+import BookingMOdal from './BookingMOdal';
 
 const AppointmentPage = () => {
   const [date, setDate] = useState(new Date());
+  const [apponinent, setApponinent] = useState(null)
   const [services, setServices] = useState([]);
   useEffect(() => {
     fetch('services.json')
@@ -23,8 +25,9 @@ const AppointmentPage = () => {
 <h4 className="text-secondary text-lg">Available Services on {format(date, 'PP')}</h4>
       <h3 className="text-accent text-md">Please select a service.</h3>
 <div className="apponints  grid gap-6 grid-cols-1  md:grid-cols-2 lg:grid-cols-3 mt-20">
-  {services.map(service => <AvailableApponintment key={service._id} id={service._id} name={service.name} slots={service.slots}/>)}
+  {services.map(service => <AvailableApponintment key={service._id} service={service} setApponinent={setApponinent}/>)}
 
+  {apponinent && <BookingMOdal date={format(date, 'PP')} apponinent={apponinent} setApponinent={setApponinent}/>}
 </div>
 </div>
       <Footer/>
