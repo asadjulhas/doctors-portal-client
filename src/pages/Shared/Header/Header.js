@@ -7,7 +7,7 @@ import auth from "../../../firebaseinit";
 const Header = () => {
   const [user, loading, error] = useAuthState(auth);
   const avatar = user?.photoURL || 'https://cdn.pixabay.com/photo/2015/03/04/22/35/avatar-659652_960_720.png'
-  console.log(user)
+  // console.log(user)
   const handleLogout = () => {
     signOut(auth);
   };
