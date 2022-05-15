@@ -1,7 +1,16 @@
+import { signOut } from "firebase/auth";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
+import auth from "../../../firebaseinit";
 
 const Header = () => {
+  const [user, loading, error] = useAuthState(auth);
+  const avatar = user?.photoURL || 'https://cdn.pixabay.com/photo/2015/03/04/22/35/avatar-659652_960_720.png'
+  console.log(user)
+  const handleLogout = () => {
+    signOut(auth);
+  };
   const menuItems = (
     <>
       <li className="text-black">
@@ -10,27 +19,9 @@ const Header = () => {
         <Link to="/appointment">Appointment</Link>
         <Link to="/reviews">Reviews</Link>
         <Link to="/contact">Contact Us</Link>
-        <Link to="/register">Register</Link>
-        <Link to="/login">Login</Link>
+        {user ? "" : <Link to="/register">Register</Link>}
+        {user ? "" : <Link to="/login">Login</Link>}
       </li>
-      <li tabIndex="0">
-              <a>
-                More
-                <svg
-                  className="fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                </svg>
-              </a>
-              <ul className="p-2">
-                <Link to="/">More 1</Link>
-                <Link to="/">More 2</Link>
-              </ul>
-            </li>
     </>
   );
   return (
@@ -58,8 +49,7 @@ const Header = () => {
               tabIndex="0"
               className="menu menu-compact dropdown-content mt-3 p-2 bg-white  rounded-box w-52"
             >
-             {menuItems}
-              
+              {menuItems}
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost normal-case text-xl text-black">
@@ -67,10 +57,30 @@ const Header = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal p-0">
-            {menuItems}
-          </ul>
+          <ul className="menu menu-horizontal p-0">{menuItems}</ul>
         </div>
+        {user ? <div className="dropdown dropdown-end">
+          <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full">
+              <img src={avatar} alt={user?.displayName} title={user?.displayName} />
+            </div>
+          </label>
+          <ul
+            tabIndex="0"
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a className="justify-between">
+                <b>{user?.displayName}</b>
+              </a>
+            </li>
+            <li className="text-[red]">
+              <Link onClick={handleLogout} to="">
+                Logout
+              </Link>
+            </li>
+          </ul>
+        </div> : ''}
       </div>
     </div>
   );

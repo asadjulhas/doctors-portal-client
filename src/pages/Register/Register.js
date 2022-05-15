@@ -1,14 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebaseinit";
 import PageTitle from "../../hooks/PageTitle";
 import "./Register.css";
 import { useAuthState, useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { async } from "@firebase/util";
+import SignWithGoogle from "./SignWithGoogle";
 
 const Register = () => {
+  const goHome = useNavigate('')
   const [errorMessage, setError] = useState("");
   const [user, loading, error] = useAuthState(auth);
+
+  if(user) {
+    goHome('/')
+  }
 
   console.log(user)
   const [
@@ -57,25 +63,24 @@ const Register = () => {
     await updateProfile({displayName})
   };
   return (
-    <div>
       <div className="login_form signup text-center">
         <PageTitle title="Register" />
         <h3>Sign Up</h3>
         <form onSubmit={signUpForm}>
-          <input placeholder="Type your name" name="name" type="text" />
+          <input required placeholder="Type your name" name="name" type="text" />
           <br />
-          <input placeholder="Email" name="email" type="email" />
+          <input required placeholder="Email" name="email" type="email" />
           <br />
-          <input placeholder="Password" name="password" type="password" />
+          <input required placeholder="Password" name="password" type="password" />
           <br />
-          <input
+          <input required
             placeholder="Confirm Password"
             name="conpassword"
             type="password"
           />
           <br />
-          {error}
-          <button className="login_btn">Sign Up</button>
+          {errorMessage}
+          <button className={`login_btn ${regloading ? 'btn loading' : ''}`}>Sign Up</button>
           <br />
           <span>
             Already have an account? <Link to="/login">Login</Link>
@@ -83,11 +88,8 @@ const Register = () => {
           <p>or</p>
         </form>
 
-        <button className="google_signin mb-8 mt-5">
-          <img width={20} src="" alt="" /> &nbsp; Continue with Google
-        </button>
+        <SignWithGoogle/>
       </div>
-    </div>
   );
 };
 
