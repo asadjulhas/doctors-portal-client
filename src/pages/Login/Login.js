@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebaseinit';
 import PageTitle from '../../hooks/PageTitle';
 import SignWithGoogle from '../Register/SignWithGoogle';
+import LoadingSpinner from '../Shared/LoadingSpinner';
 
 const Login = () => {
   const goHome = useNavigate('')
@@ -16,6 +17,9 @@ const Login = () => {
     error,
   ] = useSignInWithEmailAndPassword(auth);
 
+  if(lgloading) {
+    return <LoadingSpinner/>
+  }
   if(lguser) {
     goHome('/')
   }

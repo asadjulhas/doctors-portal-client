@@ -6,17 +6,12 @@ import "./Register.css";
 import { useAuthState, useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { async } from "@firebase/util";
 import SignWithGoogle from "./SignWithGoogle";
+import LoadingSpinner from "../Shared/LoadingSpinner";
 
 const Register = () => {
   const goHome = useNavigate('')
   const [errorMessage, setError] = useState("");
   const [user, loading, error] = useAuthState(auth);
-
-  if(user) {
-    goHome('/')
-  }
-
-  console.log(user)
   const [
     createUserWithEmailAndPassword,
     reguser,
@@ -24,6 +19,15 @@ const Register = () => {
     regerror,
   ] = useCreateUserWithEmailAndPassword(auth);
   const [updateProfile, updating, uperror] = useUpdateProfile(auth);
+
+  if(loading) {
+    return <LoadingSpinner/>
+  }
+  
+  if(user) {
+    goHome('/')
+  }
+
 
   const signUpForm = async (e) => {
     e.preventDefault();
