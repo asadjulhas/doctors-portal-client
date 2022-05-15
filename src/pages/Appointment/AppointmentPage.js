@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import PageTitle from '../../hooks/PageTitle';
@@ -11,9 +12,10 @@ const AppointmentPage = () => {
   const [apponinent, setApponinent] = useState(null)
   const [services, setServices] = useState([]);
   useEffect(() => {
-    fetch('services.json')
-    .then(res => res.json())
-    .then(data => setServices(data))
+    axios.get('http://localhost:5000/service')
+    .then(res => {
+      setServices(res.data)
+    })
   },[]);
   return (
     <div>
