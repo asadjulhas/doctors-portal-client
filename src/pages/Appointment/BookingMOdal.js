@@ -1,31 +1,46 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
+import auth from "../../firebaseinit";
 import "./BookingMOdal.css";
 
-const BookingMOdal = ({ apponinent, date, setApponinent }) => {
-  const { _id, name, slots } = apponinent;
-  const [alert, setAlert] = useState("");
+const BookingMOdal = ({ apponinent, date, setApponinent, refetch }) => {
+  const [user, loading, error] = useAuthState(auth);
+  const { _id, name, available } = apponinent;
+  const [alert, setAlert] = useState('');
 
   // booking form
   const handleBooking = (e) => {
     e.preventDefault();
     const slot = e.target.slot.value;
-    const name = e.target.name.value;
-    const email = e.target.email.value;
+    const userName = user.displayName;
+    const email = user.email;
     const phone = e.target.phone.value;
     const serviceId = _id;
+    const serviceName = name;
     if (!slot) {
       setAlert(
         <p className="text-[red] mt-3">Please select appointment time</p>
       );
       return;
     }
-    const data = { serviceId, date, slot, name, email, phone };
+    const data = { serviceId, serviceName, date, slot, userName, email, phone };
     axios.post("http://localhost:5000/booking", data).then((res) => {
-      if (res.data.acknowledged) {
+      if (res?.data?.acknowledged) {
         setApponinent(null);
-        toast.success('Booking confirmed!', {
+        toast.success(`Appointment is set ${date} at ${slot}`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+          refetch()
+      } else if (res?.data?._id) {
+        toast.error(`Appointment already set on ${date} at ${res?.data?.slot}`, {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -72,7 +87,7 @@ const BookingMOdal = ({ apponinent, date, setApponinent }) => {
                         className="select select-bordered w-full max-w-xs"
                       >
                         <option disabled>Select appointment time </option>
-                        {slots.map((slot, index) => (
+                        {available.map((slot, index) => (
                           <option key={index} value={slot}>
                             {slot}
                           </option>
@@ -81,19 +96,23 @@ const BookingMOdal = ({ apponinent, date, setApponinent }) => {
                     </div>
                     <div className="form-control mb-3">
                       <input
+                      disabled
                         required
                         name="name"
                         type="text"
                         placeholder="Full name"
+                        value={user.displayName}
                         className="input input-bordered"
                       />
                     </div>
                     <div className="form-control mb-3">
                       <input
+                      disabled
                         required
                         name="email"
                         type="email"
                         placeholder="Email address"
+                        value={user.email}
                         className="input input-bordered"
                       />
                     </div>

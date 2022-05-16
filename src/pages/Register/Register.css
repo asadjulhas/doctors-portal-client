@@ -1,5 +1,8 @@
 
-
+.reset_button {
+	height: 2rem !important;
+	min-height: 2rem !important;
+}
 .login_form {
   background: #FFFFFF;
   border: 1px solid #95A0A7;

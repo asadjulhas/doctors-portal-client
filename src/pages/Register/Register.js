@@ -17,7 +17,7 @@ const Register = () => {
     reguser,
     regloading,
     regerror,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
   const [updateProfile, updating, uperror] = useUpdateProfile(auth);
 
   if(loading) {
@@ -27,7 +27,6 @@ const Register = () => {
   if(user) {
     goHome('/')
   }
-
 
   const signUpForm = async (e) => {
     e.preventDefault();
@@ -64,6 +63,10 @@ const Register = () => {
       setError('');
     }
     await createUserWithEmailAndPassword(email, password);
+    if(regerror) {
+      
+setError(<p className="text-[red]">{regerror.message}</p>);
+    }
     await updateProfile({displayName})
   };
   return (

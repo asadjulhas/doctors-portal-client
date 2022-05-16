@@ -4,7 +4,7 @@ import './Footer.css'
 const Footer = () => {
   return (
   <div className='footer_area mb-20'>
-    <footer className="footer p-10 text-neutral-content text-accent">
+    <footer className="footer p-10 text-neutral-content text-[black]">
   <div>
     <span className="footer-title">Services</span> 
     <a className="link link-hover">Branding</a>
