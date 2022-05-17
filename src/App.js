@@ -13,6 +13,7 @@ import RequireAuth from './hooks/RequireAuth';
 import DashBoard from './pages/DashBoadr/DashBoard';
 import MyAppointment from './pages/DashBoadr/MyAppointment';
 import MyReview from './pages/DashBoadr/MyReview';
+import AllUsers from './pages/DashBoadr/AllUsers';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         }>
           <Route index element={<MyAppointment/>}/>
           <Route path='review' element={<MyReview/>}/>
+          <Route path='all-users' element={<AllUsers/>}/>
         </Route>
         <Route path='/register' element={<Register/>} />
         <Route path='/login' element={<Login/>} />
