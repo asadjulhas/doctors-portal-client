@@ -7,6 +7,7 @@ import { useAuthState, useCreateUserWithEmailAndPassword, useUpdateProfile } fro
 import { async } from "@firebase/util";
 import SignWithGoogle from "./SignWithGoogle";
 import LoadingSpinner from "../Shared/LoadingSpinner";
+import useToken from "../../hooks/useToken";
 
 const Register = () => {
   const goHome = useNavigate('')
@@ -19,12 +20,13 @@ const Register = () => {
     regerror,
   ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
   const [updateProfile, updating, uperror] = useUpdateProfile(auth);
+  const [token] = useToken(user)
 
   if(loading) {
     return <LoadingSpinner/>
   }
   
-  if(user) {
+  if(token) {
     goHome('/')
   }
 

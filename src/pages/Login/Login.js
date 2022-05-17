@@ -5,11 +5,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../firebaseinit';
 import PageTitle from '../../hooks/PageTitle';
+import useToken from '../../hooks/useToken';
 import SignWithGoogle from '../Register/SignWithGoogle';
 import LoadingSpinner from '../Shared/LoadingSpinner';
 
 const Login = () => {
-  const goHome = useNavigate('')
   let location = useLocation();
   let navigate = useNavigate();
 const emailref = useRef('')
@@ -24,14 +24,14 @@ const emailref = useRef('')
   const [sendPasswordResetEmail, sending, reseterror] = useSendPasswordResetEmail(
     auth
   );
-
+const [token] = useToken(lguser);
   let from = location.state?.from?.pathname || "/";
 
   useEffect(()=>{
-    if(lguser){
+    if(token){
       navigate(from, { replace: true });
     };
-  },[lguser, navigate])
+  },[lguser, navigate, token])
 
   if(lgloading) {
     return <LoadingSpinner/>
