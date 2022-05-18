@@ -83,7 +83,7 @@ const Header = () => {
             </li>
           </ul>
         </div> : ''}
-        <div className="navbar-end">
+        <div className="navbar-end  lg:hidden">
           <div className="dropdown">
             <label htmlFor="my-drawer-2" className="btn btn-ghost drawer-button lg:hidden">
             <svg

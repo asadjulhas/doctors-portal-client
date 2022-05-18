@@ -17,15 +17,27 @@ const AllUsers = () => {
 .then(res => res.json())
 )
 if(isLoading) {
-  return <LoadingSpinnerSmall/>
+  return <div className="min-h-screen flex items-center user_loading">
+    <LoadingSpinnerSmall/>
+  </div>
 }
 
 
 // Make admin
 const makeAdmin = (email) => {
-  axios.put(`http://localhost:5000/admin/${email}`)
-      .then(res => {
-        if(res.status === 200) {
+  fetch(`http://localhost:5000/admin/${email}`, {
+    method: 'PUT',
+    headers: {
+      'authorization': `Bearer ${accessToken}`
+    }
+  })
+  .then(ress => ress.json())
+  .then(res => {
+    if(res.message) {
+      toast.error(`${res.message}`, {
+        position: "top-center",})
+    }
+        else if(res.result.acknowledged) {
           refetch()
           toast.success('Make admin successfully!', {
             position: "top-center",})
@@ -36,9 +48,19 @@ const makeAdmin = (email) => {
 
 // Remove admin
 const removeAdmin = (email) => {
-  axios.put(`http://localhost:5000/remove-admin/${email}`,)
+  fetch(`http://localhost:5000/remove-admin/${email}`, {
+    method: 'PUT',
+    headers: {
+      'authorization': `Bearer ${accessToken}`
+    }
+  })
+  .then(ress => ress.json())
       .then(res => {
-        if(res.status === 200) {
+        if(res.message) {
+          toast.error(`${res.message}`, {
+            position: "top-center",})
+        }
+            else if(res.result.acknowledged) {
           refetch()
           toast.warn('Remove admin successfully!', {
             position: "top-center",})

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import PageTitle from '../../hooks/PageTitle';
+import './Dashboard.css'
 
 const DashBoard = () => {
   return (
