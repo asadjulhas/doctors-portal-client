@@ -12,7 +12,7 @@ const MyAppointment = () => {
   const [data, setData] = useState([]);
 
   useEffect(()=> {
-    fetch(`http://localhost:5000/my-appointment?email=${user?.email}`, {
+    fetch(`https://sheltered-beyond-38485.herokuapp.com/my-appointment?email=${user?.email}`, {
     method: 'GET',
     headers: {
       'authorization': `Bearer ${accessToken}`

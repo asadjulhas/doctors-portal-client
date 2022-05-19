@@ -26,7 +26,7 @@ const BookingMOdal = ({ apponinent, date, setApponinent, refetch }) => {
       return;
     }
     const data = { serviceId, serviceName, date, slot, userName, email, phone };
-    axios.post("http://localhost:5000/booking", data).then((res) => {
+    axios.post("https://sheltered-beyond-38485.herokuapp.com/booking", data).then((res) => {
       if (res?.data?.acknowledged) {
         setApponinent(null);
         toast.success(`Appointment is set ${date} at ${slot}`, {

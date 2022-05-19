@@ -8,7 +8,7 @@ import LoadingSpinnerSmall from '../Shared/LoadingSpinnerSmall';
 
 const AllUsers = () => {
   const accessToken = localStorage.getItem('accessToken')
-  const {data, isLoading, refetch} = useQuery(['alluser'], () => fetch('http://localhost:5000/all-users', {
+  const {data, isLoading, refetch} = useQuery(['alluser'], () => fetch('https://sheltered-beyond-38485.herokuapp.com/all-users', {
     method: 'GET',
     headers: {
       'authorization': `Bearer ${accessToken}`
@@ -25,7 +25,7 @@ if(isLoading) {
 
 // Make admin
 const makeAdmin = (email) => {
-  fetch(`http://localhost:5000/admin/${email}`, {
+  fetch(`https://sheltered-beyond-38485.herokuapp.com/admin/${email}`, {
     method: 'PUT',
     headers: {
       'authorization': `Bearer ${accessToken}`
@@ -48,7 +48,7 @@ const makeAdmin = (email) => {
 
 // Remove admin
 const removeAdmin = (email) => {
-  fetch(`http://localhost:5000/remove-admin/${email}`, {
+  fetch(`https://sheltered-beyond-38485.herokuapp.com/remove-admin/${email}`, {
     method: 'PUT',
     headers: {
       'authorization': `Bearer ${accessToken}`
