@@ -1,6 +1,7 @@
 import React from 'react';
 import './Appointment.css'
 import doctor from '../../assets/images/doctor.png'
+import { Link } from 'react-router-dom';
 
 const Appointment = () => {
   return (
@@ -14,7 +15,7 @@ const Appointment = () => {
     <h2 className="card-title text-white text-2xl mb-4 mt-3">Make an appointment Today</h2>
     <p className='text-white'>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsumis that it has a more-or-less normal distribution of letters,as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page</p>
     <div className="mt-5">
-    <button className="btn btn-success bg-gradient-to-r from-secondary to-primary text-bold text-white">GET STARTED</button>
+    <Link to='/appointment' className="btn btn-success bg-gradient-to-r from-secondary to-primary text-bold">GET STARTED</Link>
     </div>
   </div>
 </div>

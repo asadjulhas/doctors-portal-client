@@ -23,7 +23,6 @@ function RequireAdmin({ children }) {
     return <div className="min-h-screen flex items-center user_loading">
     <LoadingSpinnerSmall/>
   </div>
-  refetch();
   }
   
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import treatment from '../../assets/images/treatment.png'
 
 const Care = () => {
@@ -10,7 +11,7 @@ const Care = () => {
     <h2 className="card-title text-black text-3xl mb-4">Exceptional Dental Care, on Your Terms</h2>
     <p className='text-black'>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsumis that it has a more-or-less normal distribution of letters,as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page</p>
     <div className="mt-5">
-    <button className="btn btn-success bg-gradient-to-r from-secondary to-primary text-bold">GET STARTED</button>
+    <Link to='/appointment' className="btn btn-success bg-gradient-to-r from-secondary to-primary text-bold">GET STARTED</Link>
     </div>
   </div>
 </div>

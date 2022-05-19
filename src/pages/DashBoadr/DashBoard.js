@@ -40,6 +40,7 @@ const DashBoard = () => {
       <li><Link to='/dashboard'>My Appointments</Link></li>
       <li><Link to='/dashboard/review'>My Review</Link></li>
       {data?.role === 'admin' ?<li><Link to='/dashboard/all-users'>All users</Link></li> : ''}
+      {data?.role === 'admin' ? <li><Link to='/dashboard/add-doctor'>Add doctor</Link></li> : ''}
     </ul>
   
   </div>
