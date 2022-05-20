@@ -7,7 +7,7 @@ import "./BookingMOdal.css";
 
 const BookingMOdal = ({ apponinent, date, setApponinent, refetch }) => {
   const [user, loading, error] = useAuthState(auth);
-  const { _id, name, available } = apponinent;
+  const { _id, name, available, price } = apponinent;
   const [alert, setAlert] = useState('');
 
   // booking form
@@ -25,7 +25,7 @@ const BookingMOdal = ({ apponinent, date, setApponinent, refetch }) => {
       );
       return;
     }
-    const data = { serviceId, serviceName, date, slot, userName, email, phone };
+    const data = { serviceId, serviceName, date, slot, userName, email, phone, price };
     axios.post("https://sheltered-beyond-38485.herokuapp.com/booking", data).then((res) => {
       if (res?.data?.acknowledged) {
         setApponinent(null);
@@ -76,7 +76,7 @@ const BookingMOdal = ({ apponinent, date, setApponinent, refetch }) => {
                         name="date"
                         type="text"
                         placeholder={date}
-                        value={date}
+                        value={`${date} ($${price})`}
                         className="input input-bordered"
                       />
                     </div>
@@ -127,7 +127,7 @@ const BookingMOdal = ({ apponinent, date, setApponinent, refetch }) => {
                       {alert}
                     </div>
                     <div className="form-control mt-3">
-                      <button className="btn btn-primary">SUBMIT</button>
+                      <button className="btn btn-primary">Book Appointment</button>
                     </div>
                   </form>
                 </div>

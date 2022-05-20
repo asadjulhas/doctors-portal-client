@@ -17,6 +17,7 @@ import AllUsers from './pages/DashBoadr/AllUsers';
 import RequireAdmin from './hooks/RequireAdmin';
 import AddDoctor from './pages/DashBoadr/AddDoctor';
 import ManageDoctor from './pages/DashBoadr/ManageDoctor';
+import Payment from './pages/DashBoadr/Payment';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
           <ManageDoctor/>
           </RequireAdmin>
           }/>
+          <Route path='payment/:id' element={<Payment/>} />
         </Route>
         <Route path='/register' element={<Register/>} />
         <Route path='/login' element={<Login/>} />

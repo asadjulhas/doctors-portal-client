@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
+import PageTitle from '../../hooks/PageTitle';
 import LoadingSpinnerSmall from '../Shared/LoadingSpinnerSmall';
 import DeleteModal from './DeleteModal';
 
@@ -58,6 +59,7 @@ setDoctorID(id)
 
   return (
     <div>
+    <PageTitle title='Manage doctor'/>
     <h2 className='mb-3'>All Doctors</h2>
     <div className="overflow-x-auto">
 <table className="table table-normal w-full">
@@ -83,13 +85,13 @@ setDoctorID(id)
       <td>
       <div className="indicator">
       
-<label htmlFor="delete-confirm-modal"  onClick={()=>handleDelete(s._id, s.name, s.specialty)} className="btn btn-error btn-xs border-0 text-white modal-button">open modal</label>
+<label htmlFor="delete-confirm-modal"  onClick={()=>handleDelete(s._id, s.name, s.specialty)} className="btn btn-error btn-xs border-0 text-white modal-button">Remove Doctor</label>
 </div>
       </td>
     </tr>)}
   </tbody>
 </table>
-{name && <DeleteModal name={name} specialty={specialty} setDeleteDoctor={setDeleteDoctor}/>}
+{name && <DeleteModal name={name} specialty={`specialty: ${specialty}`} setDeleteDoctor={setDeleteDoctor}/>}
 </div>
 </div>
   );

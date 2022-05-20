@@ -5,6 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import auth from '../../firebaseinit';
+import PageTitle from '../../hooks/PageTitle';
 import LoadingSpinnerSmall from '../Shared/LoadingSpinnerSmall';
 
 const AllUsers = () => {
@@ -76,6 +77,7 @@ const removeAdmin = (email) => {
 
   return (
     <div>
+    <PageTitle title='All users'/>
     <h2 className='mb-3'>Appointment users</h2>
     <div className="overflow-x-auto">
 <table className="table table-normal w-full">

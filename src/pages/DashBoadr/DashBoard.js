@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useQuery } from 'react-query';
 import { Link, Outlet } from 'react-router-dom';
 import auth from '../../firebaseinit';
 import PageTitle from '../../hooks/PageTitle';
-import LoadingSpinner from '../Shared/LoadingSpinner';
-import LoadingSpinnerSmall from '../Shared/LoadingSpinnerSmall';
 import './Dashboard.css'
 
 const DashBoard = () => {
