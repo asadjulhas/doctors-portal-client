@@ -83,7 +83,7 @@ setDoctorID(id)
       <td>
       <div className="indicator">
       
-<label htmlFor="my-modal"  onClick={()=>handleDelete(s._id, s.name, s.specialty)} className="btn btn-error btn-xs border-0 text-white modal-button">open modal</label>
+<label htmlFor="delete-confirm-modal"  onClick={()=>handleDelete(s._id, s.name, s.specialty)} className="btn btn-error btn-xs border-0 text-white modal-button">open modal</label>
 </div>
       </td>
     </tr>)}
