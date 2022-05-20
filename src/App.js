@@ -16,6 +16,7 @@ import MyReview from './pages/DashBoadr/MyReview';
 import AllUsers from './pages/DashBoadr/AllUsers';
 import RequireAdmin from './hooks/RequireAdmin';
 import AddDoctor from './pages/DashBoadr/AddDoctor';
+import ManageDoctor from './pages/DashBoadr/ManageDoctor';
 
 function App() {
   return (
@@ -44,6 +45,11 @@ function App() {
           <Route path='add-doctor' element={
             <RequireAdmin>
           <AddDoctor/>
+          </RequireAdmin>
+          }/>
+          <Route path='manage-doctor' element={
+            <RequireAdmin>
+          <ManageDoctor/>
           </RequireAdmin>
           }/>
         </Route>

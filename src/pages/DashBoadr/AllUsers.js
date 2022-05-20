@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
@@ -36,6 +37,8 @@ const makeAdmin = (email) => {
     if(res.message) {
       toast.error(`${res.message}`, {
         position: "top-center",})
+        signOut(auth);
+        localStorage.removeItem("accessToken");
     }
         else if(res.result.acknowledged) {
           refetch()
@@ -59,6 +62,8 @@ const removeAdmin = (email) => {
         if(res.message) {
           toast.error(`${res.message}`, {
             position: "top-center",})
+            signOut(auth);
+            localStorage.removeItem("accessToken");
         }
             else if(res.result.acknowledged) {
           refetch()
