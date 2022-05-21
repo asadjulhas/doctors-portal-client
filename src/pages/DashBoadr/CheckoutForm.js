@@ -2,6 +2,8 @@ import { jsonEval } from '@firebase/util';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import LoadingSpinnerSmall from '../Shared/LoadingSpinnerSmall';
 
 const CheckoutForm = ({service}) => {
   const {price: amount, userName, email, serviceId, _id} = service;
@@ -13,10 +15,26 @@ const CheckoutForm = ({service}) => {
   const [success, setSuccess] = useState('')
   const [tnID, setTnID] = useState('')
   const accessToken = localStorage.getItem('accessToken')
-  
 
+   // Check Payment status 
+   useEffect(() => {
+    fetch(`https://sheltered-beyond-38485.herokuapp.com/booking/${_id}`, {
+    method: 'GET',
+    headers: {
+      'authorization': `Bearer ${accessToken}`
+    }
+  })
+.then(res => res.json())
+.then(data => {
+  if (data.payment) {
+    setSuccess(`Your Payment is Completed!`);
+    setTnID(data.transactionId);
+  }
+})
+  },[])
   useEffect(() => {
-    fetch('https://sheltered-beyond-38485.herokuapp.com/create-payment-intent', {
+    if(!tnID) {
+      fetch('https://sheltered-beyond-38485.herokuapp.com/create-payment-intent', {
       method: 'POST',
       headers: {
         "content-type": "application/json",
@@ -31,7 +49,11 @@ const CheckoutForm = ({service}) => {
         setClientSecret(data.clientSecret);
       }
     })
-  },[amount])
+    }
+  },[])
+
+   
+
 
   const handleSubmit = async (e) => {
     setLoader(true)
@@ -82,13 +104,13 @@ if(intentError) {
   setSuccess(`Your Payment is Completed!`);
   setTnID(paymentIntent.id);
 
-  fetch(`http://localhost:4000/payment/${_id}`, {
+  fetch(`https://sheltered-beyond-38485.herokuapp.com/payment/${_id}`, {
     method: 'PUT',
     headers: {
       "content-type": "application/json",
       'authorization': `Bearer ${accessToken}`
     },
-    body: JSON.stringify({transactionId: paymentIntent.id})
+    body: JSON.stringify({paymentIntent})
   })
   .then(ress => ress.json())
       .then(res => {
@@ -119,7 +141,7 @@ if(intentError) {
           },
         }}
       />
-      <button class={`btn btn-sm btn-primary my-5  bg-gradient-to-r from-primary to-secondary ${loader ? 'loading' : ''}`}  type="submit" disabled={!stripe || !clientSecret}>Pay Now ${amount}</button>
+      <button className={`btn btn-sm btn-primary my-5  bg-gradient-to-r from-primary to-secondary ${loader ? 'loading' : ''}`}  type="submit" disabled={!stripe || !clientSecret}>Pay Now ${amount}</button>
       {carderror && <p className='text-red-500 mb-5'>{carderror}</p>}
     </form>}
       {success && <p className='text-green-500 mb-5'>{success} <span className='text-orange-700'>Transaction ID: <b>{tnID}</b></span></p>}
