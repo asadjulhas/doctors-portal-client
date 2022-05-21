@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 const CheckoutForm = ({service}) => {
-  const {price: amount, userName, email, serviceId} = service;
+  const {price: amount, userName, email, serviceId, _id} = service;
   const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
   const [loader, setLoader] = useState(false)
@@ -80,7 +80,22 @@ if(intentError) {
 } else{
   setCarderror('')
   setSuccess(`Your Payment is Completed!`);
-  setTnID(paymentIntent.id)
+  setTnID(paymentIntent.id);
+
+  fetch(`http://localhost:4000/payment/${_id}`, {
+    method: 'PUT',
+    headers: {
+      "content-type": "application/json",
+      'authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({transactionId: paymentIntent.id})
+  })
+  .then(ress => ress.json())
+      .then(res => {
+        // console.log(res)
+      })
+
+
 }
 
   };

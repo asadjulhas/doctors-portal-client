@@ -19,13 +19,14 @@ const BookingMOdal = ({ apponinent, date, setApponinent, refetch }) => {
     const phone = e.target.phone.value;
     const serviceId = _id;
     const serviceName = name;
+    const payment = false;
     if (!slot) {
       setAlert(
         <p className="text-[red] mt-3">Please select appointment time</p>
       );
       return;
     }
-    const data = { serviceId, serviceName, date, slot, userName, email, phone, price };
+    const data = { serviceId, serviceName, date, slot, userName, email, phone, price, payment };
     axios.post("https://sheltered-beyond-38485.herokuapp.com/booking", data).then((res) => {
       if (res?.data?.acknowledged) {
         setApponinent(null);

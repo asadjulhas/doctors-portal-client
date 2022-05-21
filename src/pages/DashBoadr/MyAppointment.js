@@ -112,8 +112,8 @@ const MyAppointment = () => {
         <td>{s.date}</td>
         <td>{s.slot}</td>
         <td>
-        {s.price ? <Link to={`/dashboard/payment/${s._id}`} className="btn btn-xs bg-gradient-to-r from-primary to-secondary border-0 text-white">{`Pay $${s.price}`}</Link> : '' }
-        &nbsp;<label htmlFor="delete-confirm-modal"   onClick={()=>handleCancle(s._id, s.serviceName, s.date)} className="btn btn-error btn-xs border-0 text-white modal-button">Cancel</label>
+        {!s.payment ? <Link to={`/dashboard/payment/${s._id}`} className="btn btn-xs bg-gradient-to-r from-primary to-secondary border-0 text-white">{`Pay $${s.price}`}</Link> : <button className="btn btn-xs bg-green-500 border-0 text-white">Payment done</button> }
+        &nbsp;{!s.payment ? <label htmlFor="delete-confirm-modal"   onClick={()=>handleCancle(s._id, s.serviceName, s.date)} className="btn btn-error btn-xs border-0 text-white modal-button">Cancel</label> : '' }
         </td>
       </tr>)}
     </tbody>
