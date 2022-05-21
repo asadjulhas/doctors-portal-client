@@ -28,15 +28,15 @@ if(isLoading) {
   return (
     <div className='mt-5'>
     <PageTitle title='Payment'/>
-    <div class="card w-100 bg-base-100 shadow-xl">
-  <div class="card-body">
-    <h2 class="card-title"><span className='text-orange-700'>${data.price}</span> Pay for {data.serviceName}</h2>
+    <div className="card w-100 bg-base-100 shadow-xl">
+  <div className="card-body">
+    <h2 className="card-title"><span className='text-orange-700'>${data.price}</span> Pay for {data.serviceName}</h2>
     <p>We will see you on <span className='text-orange-700'>{data.date}</span> at {data.slot}</p>
   </div>
-  <div class="card w-100 bg-orange-100 shadow-xl">
-  <div class="card-body  py-0">
+  <div className="card w-100 bg-orange-100 shadow-xl">
+  <div className="card-body  py-0">
   <Elements stripe={stripePromise}>
-    <CheckoutForm ammount={data.price} />
+    <CheckoutForm service={data} />
   </Elements>
   </div>
 </div>
