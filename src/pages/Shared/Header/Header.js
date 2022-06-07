@@ -16,10 +16,10 @@ const Header = () => {
     <>
       <li className="text-black">
         <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
+        {/* <Link to="/about">About</Link> */}
         <Link to="/appointment">Appointment</Link>
-        <Link to="/reviews">Reviews</Link>
-        <Link to="/contact">Contact Us</Link>
+        {/* <Link to="/reviews">Reviews</Link> */}
+        {/* <Link to="/contact">Contact Us</Link> */}
         {user ? <Link to="/dashboard">Dashboard</Link> : ''}
         {user ? '' : <Link to="/register">Register</Link>}
         {user ? '' : <Link to="/login">Login</Link>}

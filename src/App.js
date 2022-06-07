@@ -25,7 +25,7 @@ function App() {
       <Header/>
       <Routes>
         <Route path='/' element={<Home/>} />
-        <Route path='/about' element={<About/>} />
+        {/* <Route path='/about' element={<About/>} /> */}
         <Route path='/appointment' element={
           <RequireAuth>
             <AppointmentPage/>
@@ -37,7 +37,7 @@ function App() {
         </RequireAuth>
         }>
           <Route index element={<MyAppointment/>}/>
-          <Route path='review' element={<MyReview/>}/>
+          {/* <Route path='review' element={<MyReview/>}/> */}
           <Route path='all-users' element={
             <RequireAdmin>
           <AllUsers/>
