@@ -1,5 +1,5 @@
 Doctor Portal [Live link](https://doctor-portal-3890e.web.app/).
-Github [Server side](https://github.com/asadjulhas/doctors-portal-client).
+Github [Server side](https://github.com/asadjulhas/doctors-portal-server).
 
 * Users can signup or log in using email, password, or using social logins like Google, This feature is
 implemented using firebase authentication.
